@@ -1,0 +1,7 @@
+div.project-container{
+    display:flex;
+}
+
+div.project-title {
+    background-color: aquamarine;
+}
