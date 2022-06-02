@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { TextField, Button, Container, Box, MenuItem } from '@mui/material'
+import { TextField, Button, Container } from '@mui/material'
 
 export default function CreateUserForm() {
 
@@ -8,10 +8,9 @@ export default function CreateUserForm() {
     const [password, setPassword] = useState('')
     const [first_name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
-    const [role_title, setRoleTitle] = useState('')
+   
     const [errors, setErrors] = useState([])
 
-    // Post that creates new User, then uses that new User Id to create a new Role for User
     function onSubmit(e){
         e.preventDefault()
         const user = {
@@ -21,7 +20,7 @@ export default function CreateUserForm() {
             first_name,
             last_name
         }
-        fetch(`http://localhost:3000/createuser`,{
+        fetch(`http://localhost:3000/users`,{
           method:'POST',
           headers:{'Content-Type': 'application/json'},
           body:JSON.stringify(user)
@@ -29,26 +28,16 @@ export default function CreateUserForm() {
         .then(res => {
           if(res.ok){
             res.json()
-            .then((newUser) => {
-              const newUserId =  newUser.id
-              const newUserRole = {
-                user_id: newUserId,
-                role_title
-              }
-              fetch('http://localhost:3000/roles', {
-                method:'POST',
-                headers:{'Content-Type': 'application/json'},
-                body:JSON.stringify(newUserRole)
-            })
-            })
+            .then(json => console.log(json))
+            // .then(user=>{
+            //   setUser(user)
+            // })
           } else {
             res.json()
             .then(json => setErrors(json.errors))
           }
         })
     }
-
-    //Returns Container to Create User
     return (
         <Container 
             sx={{width: 400,
@@ -68,7 +57,7 @@ export default function CreateUserForm() {
             />
             <div>
 
-              <div className='new-user-label'>
+              <div>
                 <label htmlFor="first-name">
                   First Name
                 </label>
@@ -82,7 +71,7 @@ export default function CreateUserForm() {
                 />
               </div>
               <br/>
-              <div className='new-user-label'>   
+              <div>   
                 <label htmlFor="last-name">
                   Last Name
                 </label>
@@ -96,7 +85,7 @@ export default function CreateUserForm() {
                 />
               </div>
               <br/>
-              <div className='new-user-label'>   
+              <div>   
                 <label htmlFor="user-name">
                   User Name
                 </label>
@@ -110,72 +99,34 @@ export default function CreateUserForm() {
                 />
               </div>
               <br/>
-              <div className='new-user-label'>
+              <div>
                 <label htmlFor="email-address">
                   Email address
                 </label>
                 <TextField
-                  id="outlined-basic"
-                  variant="outlined"
-                  label="Email"
+                  id="email-address"
                   name="email"
                   type="email"
                   autoComplete="off"
                   required
+                  placeholder="Email address"
                   onChange={(event) =>setEmail(event.target.value)}
                 />
               </div>
               <br/>
-              <div className='new-user-label'>
+              <div>
                 <label htmlFor="password">
                   Password
                 </label>
                 <TextField
-                  id="outlined-basic"
+                  id="password"
                   name="password"
-                  label="Password"
                   type="password"
-                  variant="outlined"
                   autoComplete='off'
                   required
+                  placeholder="Password"
                   onChange={(event) =>setPassword(event.target.value)}
                 />
-              </div>
-              <br/>
-              <div>   
-                    <Box
-                      className='new-user-label'
-                      component="form"
-                      sx={{
-                        '& .MuiTextField-root': { m: 1, width: '25ch' },
-                      }}
-                      noValidate
-                      autoComplete="off"
-                    >
-                  <label htmlFor="last-name">
-                    New Role
-                  </label>
-                        <TextField
-                          id="outlined-select"
-                          label='New Role'
-                          select                   
-                          value={role_title}
-                          onChange={(event) => setRoleTitle(event.target.value)}
-                        >
-                          <MenuItem key='System Admin' value='System Admin'>
-                            System Admin
-                          </MenuItem>
-                          <MenuItem key='Project Manager' value='Project Manager'>
-                            Project Manager
-                          </MenuItem>
-                          <MenuItem key='SWE - FrontEnd' value='SWE - FrontEnd'>
-                            SWE - FrontEnd
-                          </MenuItem>
-                          <MenuItem key='SWE - BackEnd' value='SWE - BackEnd'>
-                            SWE - BackEnd
-                          </MenuItem>
-                        </TextField>
-                      </Box>
               </div>
             </div>
             <br/>

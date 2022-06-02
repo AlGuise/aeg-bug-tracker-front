@@ -89,7 +89,7 @@ export default function ResponsiveAppBar({setUser,setIsAuthenticated, user}) {
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
-              keepMounted
+              // keepMounted
               transformOrigin={{
                 vertical: 'top',
                 horizontal: 'left',

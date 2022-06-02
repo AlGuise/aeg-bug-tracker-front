@@ -25,3 +25,15 @@ div#login-container{
     justify-content: center;
 
 }
+
+.new-user-label {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+label {
+    
+    padding: 10px;
+    font-size: 16px;
+}
