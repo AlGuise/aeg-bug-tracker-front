@@ -1,7 +1,5 @@
-div.project-container{
-    display:flex;
-}
-
-div.project-title {
-    background-color: aquamarine;
+div#login-container{
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
 }

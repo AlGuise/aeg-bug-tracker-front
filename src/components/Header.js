@@ -15,12 +15,23 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
 
 const pages = ['Projects', 'Tickets', 'Team'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+export default function ResponsiveAppBar({setUser,setIsAuthenticated, user}) {
+  console.log(user)
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const logout = () => {
+    fetch('http://localhost:3000/logout',{
+        method:'DELETE'
+    })
+    .then(()=>{
+        navigate("/");
+        setIsAuthenticated(false);
+        setUser(null);
+        window.location.replace("http://localhost:9000/");
+    })
+} 
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -46,8 +57,9 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate(`/`)}
             sx={{
+              cursor: 'pointer',
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
@@ -103,7 +115,7 @@ const ResponsiveAppBar = () => {
             variant="h5"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate(`/`)}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -132,7 +144,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user?.user_name} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -151,11 +163,15 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => navigate(`${setting}`)}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key='profile' onClick={() => navigate(`./profile`)}>
+                  <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem key='dashboard' onClick={() => navigate(`./`)}>
+                  <Typography textAlign="center">Dashboard</Typography>
+                </MenuItem>
+                <MenuItem key='logout' onClick={logout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -163,4 +179,3 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;

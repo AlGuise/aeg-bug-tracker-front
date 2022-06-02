@@ -16,4 +16,6 @@ fetch("http://localhost:3000/tickets")
             tickets,
 })));
 
+
+
 export default ticketStore
