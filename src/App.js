@@ -8,7 +8,7 @@ import ProjectsPage from './views/ProjectsPage';
 import TicketsPage from './views/TicketsPage';
 import Dashboard from './views/Dashboard';
 import Profile from './views/Profile';
-import Logout from './views/Logout';
+import AdminSetup from './views/AdminSetUp';
 import Protected from './components/Protected'
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
         <Route path="/projects" element = {<Protected isAuthenticated={isAuthenticated}><ProjectsPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
         <Route path="/tickets" element = {<Protected isAuthenticated={isAuthenticated}><TicketsPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
         <Route path="/" element = {<Protected isAuthenticated={isAuthenticated}><Dashboard isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
-        <Route path="/logout" element = {<Logout/>} />
+        <Route path="/adminsetup" element = {<Protected isAuthenticated={isAuthenticated}><AdminSetup/></Protected>} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>
         <Route path="/profile" element = {<Protected isAuthenticated={isAuthenticated}><Profile isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
       </Routes>
     </div>

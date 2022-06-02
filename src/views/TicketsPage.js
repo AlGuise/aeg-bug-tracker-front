@@ -10,9 +10,9 @@ export default function TicketsPage ({isAuthenticated,setUser,setIsAuthenticated
   const tickets = ticketStore((state) => state.tickets);
   const navigate = useNavigate();
 
-  const completeTicket = (user.id) => {
+  // const completeTicket = (user.id) => {}
     
-  }
+  
 
   return (
     <Grid sx={{ flexGrow: 1 }} container spacing={4}>

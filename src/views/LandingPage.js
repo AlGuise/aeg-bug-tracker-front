@@ -41,7 +41,7 @@ export default function Login({setUser, setIsAuthenticated}) {
     <div id="login-container">
     <Box
     sx={{
-      fontFamily: 'monospace',
+      textDecoration: 'none',
       width: 300,
       height: 300,
       backgroundColor: 'primary.main',

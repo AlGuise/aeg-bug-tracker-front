@@ -17,7 +17,6 @@ import { useNavigate } from 'react-router-dom';
 const pages = ['Projects', 'Tickets', 'Team'];
 
 export default function ResponsiveAppBar({setUser,setIsAuthenticated, user}) {
-  console.log(user)
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -52,7 +51,6 @@ export default function ResponsiveAppBar({setUser,setIsAuthenticated, user}) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
           <Typography
             variant="h6"
             noWrap
@@ -62,7 +60,6 @@ export default function ResponsiveAppBar({setUser,setIsAuthenticated, user}) {
               cursor: 'pointer',
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -118,9 +115,9 @@ export default function ResponsiveAppBar({setUser,setIsAuthenticated, user}) {
             onClick={() => navigate(`/`)}
             sx={{
               mr: 2,
+              cursor: 'pointer',
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -168,6 +165,9 @@ export default function ResponsiveAppBar({setUser,setIsAuthenticated, user}) {
                 </MenuItem>
                 <MenuItem key='dashboard' onClick={() => navigate(`./`)}>
                   <Typography textAlign="center">Dashboard</Typography>
+                </MenuItem>
+                <MenuItem key='logout' onClick={() => navigate('./adminsetup')}>
+                  <Typography textAlign="center">Admin</Typography>
                 </MenuItem>
                 <MenuItem key='logout' onClick={logout}>
                   <Typography textAlign="center">Logout</Typography>
