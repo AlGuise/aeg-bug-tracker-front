@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { TextField, Button, Container, Box, MenuItem } from '@mui/material'
 
-export default function CreateUserForm() {
+export default function CreateUserForm({setErrors}) {
 
     const [user_name, setUserName] = useState('')
     const [email, setEmail] = useState('')
@@ -9,7 +9,6 @@ export default function CreateUserForm() {
     const [first_name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
     const [role_title, setRoleTitle] = useState('')
-    const [errors, setErrors] = useState([])
 
     // Post that creates new User, then uses that new User Id to create a new Role for User
     function onSubmit(e){
@@ -21,7 +20,7 @@ export default function CreateUserForm() {
             first_name,
             last_name
         }
-        fetch(`http://localhost:3000/createuser`,{
+        fetch(`http://localhost:3000/create_user`,{
           method:'POST',
           headers:{'Content-Type': 'application/json'},
           body:JSON.stringify(user)
@@ -73,7 +72,6 @@ export default function CreateUserForm() {
                   First Name
                 </label>
                 <TextField
-                    id="outlined-basic"
                     label="First Name"
                     variant="outlined"
                     autoComplete="off"
@@ -87,7 +85,6 @@ export default function CreateUserForm() {
                   Last Name
                 </label>
                 <TextField 
-                    id="outlined-basic"
                     label="Last Name"
                     variant="outlined"
                     autoComplete="off"
@@ -101,7 +98,6 @@ export default function CreateUserForm() {
                   User Name
                 </label>
                 <TextField 
-                    id="outlined-basic"
                     label="User Name"
                     variant="outlined"
                     autoComplete="off"
@@ -115,7 +111,6 @@ export default function CreateUserForm() {
                   Email address
                 </label>
                 <TextField
-                  id="outlined-basic"
                   variant="outlined"
                   label="Email"
                   name="email"
@@ -131,7 +126,6 @@ export default function CreateUserForm() {
                   Password
                 </label>
                 <TextField
-                  id="outlined-basic"
                   name="password"
                   label="Password"
                   type="password"
@@ -156,7 +150,6 @@ export default function CreateUserForm() {
                     New Role
                   </label>
                         <TextField
-                          id="outlined-select"
                           label='New Role'
                           select                   
                           value={role_title}

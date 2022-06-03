@@ -1,37 +1,27 @@
 import React, {useState} from 'react'
 import { TextField, Button, Container } from '@mui/material'
 
-export default function CreateUserForm() {
+export default function CreateProjectForm({user, setErrors}) {
 
-    const [user_name, setUserName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [first_name, setFirstName] = useState('')
-    const [last_name, setLastName] = useState('')
-   
-    const [errors, setErrors] = useState([])
+    const [name, setName] = useState('')
+    const [deadline, setDeadline] = useState('')
+    const [created_by, setCreatedBy] = useState('')
 
     function onSubmit(e){
         e.preventDefault()
-        const user = {
-            user_name,
-            password,
-            email,
-            first_name,
-            last_name
+        const project = {
+            name,
+            deadline,
+            created_by: user.user_name,
         }
-        fetch(`http://localhost:3000/users`,{
+        fetch(`http://localhost:3000/create_project`,{
           method:'POST',
           headers:{'Content-Type': 'application/json'},
-          body:JSON.stringify(user)
+          body:JSON.stringify(project)
         })
         .then(res => {
           if(res.ok){
             res.json()
-            .then(json => console.log(json))
-            // .then(user=>{
-            //   setUser(user)
-            // })
           } else {
             res.json()
             .then(json => setErrors(json.errors))
@@ -58,74 +48,42 @@ export default function CreateUserForm() {
             <div>
 
               <div>
-                <label htmlFor="first-name">
-                  First Name
+                <label htmlFor="project-name">
+                  Project Name
                 </label>
                 <TextField
-                    id="outlined-basic"
-                    label="First Name"
+                    label="Project Name"
                     variant="outlined"
                     autoComplete="off"
                     required
-                    onChange={(event) =>setFirstName(event.target.value)}
+                    onChange={(event) =>setName(event.target.value)}
                 />
               </div>
               <br/>
               <div>   
-                <label htmlFor="last-name">
-                  Last Name
+                <label htmlFor="deadline">
+                  Deadline
                 </label>
                 <TextField 
-                    id="outlined-basic"
-                    label="Last Name"
+                    label="Deadline"
                     variant="outlined"
                     autoComplete="off"
                     required
-                    onChange={(event) =>setLastName(event.target.value)}
+                    onChange={(event) =>setDeadline(event.target.value)}
                 />
               </div>
               <br/>
               <div>   
-                <label htmlFor="user-name">
-                  User Name
+                <label htmlFor="created-by">
+                  Created By
                 </label>
                 <TextField 
-                    id="outlined-basic"
-                    label="User Name"
                     variant="outlined"
-                    autoComplete="off"
-                    required
-                    onChange={(event) =>setUserName(event.target.value)}
-                />
-              </div>
-              <br/>
-              <div>
-                <label htmlFor="email-address">
-                  Email address
-                </label>
-                <TextField
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="off"
-                  required
-                  placeholder="Email address"
-                  onChange={(event) =>setEmail(event.target.value)}
-                />
-              </div>
-              <br/>
-              <div>
-                <label htmlFor="password">
-                  Password
-                </label>
-                <TextField
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete='off'
-                  required
-                  placeholder="Password"
-                  onChange={(event) =>setPassword(event.target.value)}
+                    defaultValue={user.user_name}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    onChange={(event) => setCreatedBy(event.target.value)}
                 />
               </div>
             </div>
@@ -135,7 +93,7 @@ export default function CreateUserForm() {
                 sx={{backgroundColor: 'primary.light', mb: 2}}
                 type="submit"
                 onClick={onSubmit}>
-                Create User
+                Create Project
               </Button>
           </form>
         </Container>

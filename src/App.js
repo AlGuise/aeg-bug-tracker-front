@@ -11,10 +11,10 @@ import Profile from './views/Profile';
 import AdminSetup from './views/AdminSetUp';
 import Protected from './components/Protected'
 
-function App() {
+export default function App() {
   
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [errors, setErrors] = useState(false)
+  const [errors, setErrors] = useState(false)
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -35,18 +35,74 @@ function App() {
 
   return (
     <div className="App">
-      <Header setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>
+      <Header  setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user} />
       <Routes>
-        <Route path="/login" element = {<LandingPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>} />
-        <Route path="/team" element = {<Protected isAuthenticated={isAuthenticated}><TeamPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>}/>
-        <Route path="/projects" element = {<Protected isAuthenticated={isAuthenticated}><ProjectsPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
-        <Route path="/tickets" element = {<Protected isAuthenticated={isAuthenticated}><TicketsPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
-        <Route path="/" element = {<Protected isAuthenticated={isAuthenticated}><Dashboard isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
-        <Route path="/adminsetup" element = {<Protected isAuthenticated={isAuthenticated}><AdminSetup/></Protected>} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>
-        <Route path="/profile" element = {<Protected isAuthenticated={isAuthenticated}><Profile isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/></Protected>} />
+        <Route
+          path="/login"
+          element = {
+            <LandingPage
+              setIsAuthenticated={setIsAuthenticated}
+              isAuthenticated={isAuthenticated}
+              setUser={setUser}
+              user={user}
+            />
+        }/>
+        <Route
+          path="/team"
+          element = {
+            <Protected isAuthenticated={isAuthenticated}>
+              <TeamPage
+                setUser={setUser}
+                user={user}/>
+            </Protected>
+        }/>
+        <Route
+          path="/projects"
+          element = {
+            <Protected isAuthenticated={isAuthenticated}>
+              <ProjectsPage
+                setUser={setUser}
+                user={user}/>
+            </Protected>
+        }/>
+        <Route
+          path="/tickets"
+          element = {
+            <Protected isAuthenticated={isAuthenticated}>
+              <TicketsPage
+                setUser={setUser}
+                user={user}/>
+            </Protected>
+        }/>
+        <Route
+          path="/"
+          element = {
+            <Protected isAuthenticated={isAuthenticated}>
+              <Dashboard
+                setUser={setUser}
+                user={user}/>
+            </Protected>
+        }/>
+        <Route
+          path="/adminsetup"
+          element = {
+            <Protected  isAuthenticated={isAuthenticated}>
+              <AdminSetup
+                setErrors={setErrors}
+                setUser={setUser}
+                user={user}/>
+            </Protected>
+        }/>
+        <Route
+          path="/profile"
+          element = {
+            <Protected isAuthenticated={isAuthenticated}>
+              <Profile
+                setUser={setUser}
+                user={user}/>
+              </Protected>
+        }/>
       </Routes>
     </div>
   );
 }
-
-export default App;

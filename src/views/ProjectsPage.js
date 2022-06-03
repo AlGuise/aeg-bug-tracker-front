@@ -19,7 +19,6 @@ export default function ProjectsPage () {
               <Paper
                 sx={{
                   textAlign: 'center',
-                  fontFamily: 'monospace',
                   fontWeight: 700,
                   fontSize: 16,
                   mt: 10,
