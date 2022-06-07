@@ -1,7 +1,7 @@
 import { Grid, Paper, Button } from '@mui/material'
 import userStore from "../features/users/userStore"
 
-export default function DeleteUserForm({}) {
+export default function DeleteUserForm() {
 
     const users = userStore((state) => state.users)
 
@@ -21,7 +21,18 @@ export default function DeleteUserForm({}) {
                         }}>
                         <h3>{user_name}</h3>
                     </Paper>
-                    <Button sx={{mt: 1}} justifyContent="center" variant="contained">Delete User</Button>
+                    <Button
+                        sx={{mt: 1}}
+                        justifyContent="center"
+                        variant="contained"
+                        onClick={() => {
+                            fetch(`http://localhost:3000/users/${id}`,{
+                                method: "DELETE",
+                            })
+                        }}
+                    >
+                        Delete User
+                    </Button>
                 </Grid>
                 ))}
             </Grid>

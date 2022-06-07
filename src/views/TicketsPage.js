@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Paper, Button } from '@mui/material';
 import ticketStore from '../features/tickets/ticketStore';
@@ -8,13 +8,6 @@ export default function TicketsPage ({isAuthenticated,setUser,setIsAuthenticated
   const tickets = ticketStore((state) => state.tickets);
   const navigate = useNavigate();
   const [submittedBy, setSubmittedBy] = useState('')
-  // function onDelete(e) {
-  //   e.preventDefault()
-  //   console.log('maybe?')
-  //     fetch(`http://localhost:3000/ticket/${tickets.id}`,{
-  //       method:'DELETE'
-  //     })
-  //   }
 
   return (
     <Grid sx={{ flexGrow: 1 }} container spacing={4}>
@@ -39,7 +32,15 @@ export default function TicketsPage ({isAuthenticated,setUser,setIsAuthenticated
                   <p>Priority: {priority}</p>
                   <p>Submitted by: {submitted_by}</p>
               </Paper>
-              <Button sx={{mt: 1}} justifyContent="center" variant="contained">Complete</Button>
+              <Button
+                sx={{mt: 1}}
+                justifyContent="center"
+                variant="contained"
+                onClick={() => {
+                  fetch(`http://localhost:3000/tickets/${id}`,{
+                      method: "DELETE",
+                  })
+              }}>Complete</Button>
             </Grid>
           ))}
         </Grid>
